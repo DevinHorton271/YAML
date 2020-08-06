@@ -12,6 +12,10 @@ namespace DevopsCI.client.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        public HomeController()
+        {
+            
+        }
 
         public HomeController(ILogger<HomeController> logger)
         {

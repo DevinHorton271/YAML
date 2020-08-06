@@ -1,0 +1,39 @@
+jobs:
+  build:
+    runs-on: ubuntu-20.04 
+    steps:
+      - uses: actions/checkout #pulls code from my machine
+      - run: dotnet build
+  test:
+  # needs: build
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2.3.1
+      - run: dotnet test
+
+  # analyze:
+  # package:
+  # deploy:
+
+name: cibuild
+
+on:
+  push:
+    branches:
+      - master #if push isn't on the master branch, don't build
+
+
+
+
+
+
+
+
+# person: # object
+#   firstName: "name" #string
+#   lastName: 100 #number
+#   middlename: true #boolean
+#   alias:
+#     - "dotnet" #-indicates a collection
+#     - "lead"
+#     - subAlias:
