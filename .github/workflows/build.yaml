@@ -3,13 +3,13 @@ jobs:
     runs-on: ubuntu-20.04 
     steps:
       - uses: actions/checkout #pulls code from my machine
-      - run: dotnet build
+      - run: dotnet build #compile
   test:
   # needs: build
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2.3.1
-      - run: dotnet test -p:CollectCoverage=true
+      - run: dotnet test -p:CollectCoverage=true # unit testing
 
   analyze:
     needs: [build, test]
@@ -17,20 +17,16 @@ jobs:
     steps:
       - uses: action/checkout@v2.3.1
       - run: dotnet tool install --global dotnet-sonarscanner
-      - run: |
-        dotnet sonarscanner begin -o:'devinhorton271' -k:'DevinHorton271_YAML' -d:sonar.login='116f97368d93c55d5c51413d5a845fb461953309' -d:sonar.host.url='https://sonarcloud.io'
-        dotnet build
-        dotnet test -p:CollectCoverage=true
-        dotnet sonarscanner end -d:sonar.login='116f97368d93c55d5c51413d5a845fb461953309'
-  # package:
-  # deploy:
-
+      - run: | #multiline value with each line ending with a newline character \n
+          dotnet sonarscanner begin -o:'devinhorton271' -k:'DevinHorton271_YAML' -d:sonar.login='116f97368d93c55d5c51413d5a845fb461953309' -d:sonar.host.url='https://sonarcloud.io'
+          dotnet build
+          dotnet test -p:CollectCoverage=true
+          dotnet sonarscanner end -d:sonar.login='116f97368d93c55d5c51413d5a845fb461953309'
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 name: cibuild
 
-on:
-  push:
-    # branches:
-    #   - master #if push isn't on the master branch, don't build
+on: push
 
 
 
