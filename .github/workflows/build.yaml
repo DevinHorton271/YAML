@@ -23,7 +23,7 @@ jobs:
           dotnet test -p:CollectCoverage=true
           dotnet sonarscanner end -d:sonar.login='3131007a1fd85069ce22d05617c1df1ba1f57458'
         env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 name: cibuild
 
 on: push
